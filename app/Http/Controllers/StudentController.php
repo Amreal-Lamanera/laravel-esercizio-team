@@ -26,7 +26,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view ('students.create');
     }
 
     /**
@@ -37,7 +37,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params=$request->validate([
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            'date_of_birth' =>  'required|date|before:today',
+            'enrollment_date' =>  'required|date|before:today',
+            'fiscal_code' => 'required|max:16|min:16|distinct',
+            'email' => 'required|email|distinct'
+        ]);
+        // dd($params);
+        $lastRegistrationNumber = Student::max('registration_number');
+        // dd($lastRegistrationNumber);
+        $params['registration_number'] = $lastRegistrationNumber +1;
+        $student = Student::create($params);
+
+         return redirect()->route('students.show', $student);
     }
 
     /**
