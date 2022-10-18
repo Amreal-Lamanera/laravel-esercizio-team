@@ -73,7 +73,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -85,7 +85,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $params = $request->validate([
+            'name' => 'required|max:255',
+            'surname' => ['required', 'max:255'],
+            'email' => 'required|email|distinct',
+            'date_of_birth' => 'required|date|before:today',
+            'fiscal_code' => 'required|max:16|min:16|distinct',
+            'enrollment_date' => 'required|date|before:today',
+        ]);
+        $params['registration_number'] = $student->registration_number;
+        $student->update($params);
+        return redirect()->route('students.show', $student);
     }
 
     /**
@@ -96,6 +106,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->route('students.index');
     }
 }
