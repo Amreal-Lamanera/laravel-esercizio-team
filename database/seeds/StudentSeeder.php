@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-use Faker\Generator as Faker; 
 use App\Student;
 class StudentSeeder extends Seeder
 {
