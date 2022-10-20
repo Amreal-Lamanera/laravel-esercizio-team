@@ -8,7 +8,7 @@
             </div>
             <div class="col-4 text-left d-flex justify-content-end align-items-center">
                 <a href="{{ route('admin.courses.create') }}" type="button" class="btn btn-primary btn-sm">Aggiungi
-                    coursee</a>
+                    corso</a>
             </div>
         </div>
     </div>
