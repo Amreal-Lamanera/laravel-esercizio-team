@@ -13,4 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DepartmentController@show');
+Route::get('/', function () {
+    return view('welcome');
+})->name('homepage');
+
+Auth::routes();
+
+Route::middleware('auth')
+    ->prefix('admin')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('departments', 'DepartmentController');
+        Route::resources([
+            'students' => 'StudentController',
+            'courses' => 'CourseController'
+        ]);
+    });
