@@ -15,7 +15,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+
+        return view('admin.courses.index', compact('courses'));
     }
 
     /**
@@ -47,7 +49,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return view('admin.courses.show', compact('course'));
     }
 
     /**
