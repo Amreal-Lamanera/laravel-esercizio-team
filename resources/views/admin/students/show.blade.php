@@ -28,9 +28,9 @@
   </div>
 </div>
 <div class="container">
-  <a href="{{ route('students.edit',$student) }}">Modifica Studente</a>
+  <a href="{{ route('admin.students.edit',$student) }}">Modifica Studente</a>
 
-  <form action="{{ route('students.destroy',$student) }}" method="POST">
+  <form action="{{ route('admin.students.destroy',$student) }}" method="POST">
     @csrf
     @method('DELETE')
     
@@ -39,10 +39,10 @@
 </div>
 </section>
 
-<section>
+{{-- <section>
   <div class="container">
     <h2>Elenco dei corsi di laurea</h2>
   </div>
-</section>
+</section> --}}
 
 @endsection
