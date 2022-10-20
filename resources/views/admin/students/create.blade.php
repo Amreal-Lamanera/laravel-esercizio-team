@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{route('students.store')}}" method="POST">
+<form action="{{route('admin.students.store')}}" method="POST">
     @csrf
     <input type="text" name="name" placeholder="inserisci il nome" value="{{old('name')}}">
     <input type="text" name="surname" placeholder="inserisci il cognome" value="{{old('cognome')}}">
