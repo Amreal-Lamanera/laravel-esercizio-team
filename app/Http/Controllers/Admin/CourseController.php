@@ -45,7 +45,7 @@ class CourseController extends Controller
             'name' => 'required|max:255|min:3',
             'description' => 'nullable',
             'period' => ['required', Rule::in(['I semestre', 'II semestre', 'Annuale'])],
-            'year' => ['required', Rule::in([1,2,3,4,5,6,7,8,9,10,11,12,14,18,20,25,27,30])],
+            'year' => ['required', Rule::in([1,2,3,4,5,6])],
             'cfu' => 'required|max:50|min:1',
             'website' => 'url|nullable',
         ]);
@@ -75,7 +75,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        
+        return view('admin.courses.edit', compact('course'));
     }
 
     /**
@@ -87,7 +87,19 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        // dd($request->all());
+        $params = $request->validate([
+            'name' => 'required|max:255|min:3',
+            'description' => 'nullable',
+            'period' => ['required', Rule::in(['I semestre', 'II semestre', 'Annuale'])],
+            'year' => ['required', Rule::in([1,2,3,4,5,6])],
+            'cfu' => 'required|max:50|min:1',
+            'website' => 'url|nullable',
+        ]);
+
+        $course->update($params);
+
+        return redirect()->route('admin.courses.show', $course);
     }
 
     /**
@@ -98,6 +110,8 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        
+        return redirect()->route('admin.courses.index');
     }
 }

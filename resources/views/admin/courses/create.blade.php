@@ -55,7 +55,7 @@
 
           <div class="form-group">
             <label for="year">Anno</label>
-            <input type="number" class="form-control @error('year')is-invalid @enderror" name="year" id="year" aria-describedby="yearHelp" value="{{ old('year') }}" placeholder="Anno">
+            <input type="number" min="1" max="6" class="form-control @error('year')is-invalid @enderror" name="year" id="year" aria-describedby="yearHelp" value="{{ old('year') }}" placeholder="Anno">
             <small id="yearHelp" class="form-text text-muted">Anno del corso</small>
             @error('year')
               <div class="invalid-feedback">
