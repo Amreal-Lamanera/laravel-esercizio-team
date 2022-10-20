@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
+
+
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +30,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.courses.create');
     }
 
     /**
@@ -38,7 +41,19 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->validate([
+            'name' => 'required|max:255|min:3',
+            'description' => 'nullable',
+            'period' => ['required', Rule::in(['I semestre', 'II semestre', 'Annuale'])],
+            'year' => ['required', Rule::in([1,2,3,4,5,6,7,8,9,10,11,12,14,18,20,25,27,30])],
+            'cfu' => 'required|max:50|min:1',
+            'website' => 'url|nullable',
+        ]);
+
+        $course = course::create($params);
+
+        return redirect()->route('admin.courses.show', $course);
+
     }
 
     /**
@@ -60,7 +75,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        
     }
 
     /**
