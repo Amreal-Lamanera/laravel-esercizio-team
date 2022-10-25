@@ -31,4 +31,5 @@ Route::middleware('auth')
             'students' => 'StudentController',
             'courses' => 'CourseController'
         ]);
+        Route::post('/deleteteacher', 'CourseController@detachTeacher')->name('detachTeacher');
     });

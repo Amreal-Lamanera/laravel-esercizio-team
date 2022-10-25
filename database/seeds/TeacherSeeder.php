@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Course;
+use App\Teacher;
+use Faker\Generator as Faker;
+
 
 class TeacherSeeder extends Seeder
 {
@@ -9,8 +13,25 @@ class TeacherSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        //
+        $courses = Course::all()->pluck('id');
+
+        for ($i = 0; $i < 500; $i++) {
+
+            $t = new Teacher();
+            $t->name = $faker->firstName();
+            $t->surname = $faker->lastName();
+            $t->phone = $faker->numerify('+### ########');
+            $t->email = $faker->email();
+            $t->office_address = $faker->address();
+            $t->office_number = $faker->numerify('##');
+
+            $t->save();
+
+            // sync con i corsi
+            $courses_id = $courses->shuffle()->take(rand(1, 3))->all();
+            $t->courses()->sync($courses_id);
+        }
     }
 }
