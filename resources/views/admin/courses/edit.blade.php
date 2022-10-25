@@ -60,6 +60,25 @@
                             </div>
                         @enderror
                     </div>
+                    
+                    <div class="form-group">
+                        <select name="teacher_id" value="{{ old('teacher_id') }}"
+                            class="custom-select @error('teacher_id')is-invalid @enderror">
+                            <option value="">-- seleziona un insegnante da aggiungere --</option>
+                            @foreach ($teachers as $teacher)
+                                <option value="{{ $teacher->id }}" @if (old('teacher_id') == $teacher->id) selected @endif>
+                                    {{ $teacher->surname }} {{ $teacher->name }}</option>
+                            @endforeach
+
+                        </select>
+                        @error('teacher_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    
 
                     <div class="form-group">
                         <label for="cfu" class="font-weight-bold">Crediti dormativi (CFU)</label>

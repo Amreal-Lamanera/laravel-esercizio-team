@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Degree;
 use App\Http\Controllers\Controller;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -48,7 +49,7 @@ class CourseController extends Controller
             'name' => 'required|max:255|min:3',
             'description' => 'nullable',
             'period' => ['required', Rule::in(['I semestre', 'II semestre', 'Annuale'])],
-            'year' => ['required', Rule::in([1,2,3,4,5,6])],
+            'year' => ['required', Rule::in([1, 2, 3, 4, 5, 6])],
             'cfu' => 'required|max:50|min:1',
             'website' => 'url|nullable',
             'degree_id' => 'required|exists:degrees,id'
@@ -57,7 +58,6 @@ class CourseController extends Controller
         $course = Course::create($params);
 
         return redirect()->route('admin.courses.show', $course);
-
     }
 
     /**
@@ -79,7 +79,11 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('admin.courses.edit', compact('course'));
+        $attachedTeacherIds = $course->teachers->pluck('id')->all();
+
+        $teachers = Teacher::whereNotIn('id', $attachedTeacherIds)->orderBy('surname', 'asc')->get();
+
+        return view('admin.courses.edit', compact('course', 'teachers'));
     }
 
     /**
@@ -96,10 +100,15 @@ class CourseController extends Controller
             'name' => 'required|max:255|min:3',
             'description' => 'nullable',
             'period' => ['required', Rule::in(['I semestre', 'II semestre', 'Annuale'])],
-            'year' => ['required', Rule::in([1,2,3,4,5,6])],
+            'year' => ['required', Rule::in([1, 2, 3, 4, 5, 6])],
             'cfu' => 'required|max:50|min:1',
             'website' => 'url|nullable',
+            'teacher_id' => 'nullable|exists:teachers,id'
         ]);
+
+        if (array_key_exists('teacher_id', $params)) {
+            $course->teachers()->attach($params['teacher_id']);
+        }
 
         $course->update($params);
 
@@ -115,7 +124,29 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        
+
         return redirect()->route('admin.courses.index');
+    }
+
+    public function detachTeacher(Request $request)
+    {
+        // dd($request->all());
+        $params = $request->all();
+        $course_id = $params['course'];
+
+        $course = Course::where('id', $course_id)->first();
+
+        // dd($course);
+
+        $params = $request->validate([
+            'teacher' => 'exists:teachers,id',
+
+        ]);
+
+        $teacher_id = $params['teacher'];
+
+        $course->teachers()->detach($teacher_id);
+
+        return redirect()->route('admin.courses.show', $course);
     }
 }
