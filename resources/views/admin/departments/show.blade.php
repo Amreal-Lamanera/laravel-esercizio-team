@@ -40,33 +40,34 @@
 <section>
   <div class="container">
     <h2>Elenco dei corsi di laurea</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Livello</th>
-          <th>Email</th>
-          <th>Numero di corsi</th>
-        </tr>
-      </thead>
-
-      {{-- <tbody>
-        @foreach ($department->degrees()->orderBy('level', 'desc')->get() as $degree)
-
-        <tr>
-          <td>{{ $degree->id }}</td>
-          <td>{{ $degree->name }}</td>
-          <td>{{ $degree->level }}</td>
-          <td>{{ $degree->email }}</td>
-          <td>{{ $degree->courses()->count() }}</td>
-
-        </tr>
-
-        @endforeach
-      </tbody> --}}
-
-    </table>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table stable-stripped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>nome</th>
+              <th>level</th>
+              <th>email</th>
+              <th>n corsi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($department->degrees()->orderBy('level','desc')->get() as $degree)
+                <tr>
+                  <td>{{ $degree->id }}</td>
+                  <td>{{ $degree->name }}</td>
+                  <td>{{ $degree->level }}</td>
+                  <td>{{ $degree->email }}</td>
+                  <td>{{ $degree->courses()->count() }}</td>
+                </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </section>
 
