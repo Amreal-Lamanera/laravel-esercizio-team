@@ -17,10 +17,11 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('email');
+            $table->string('website');
+            $table->string('head_of_department');
             $table->timestamps();
-            
         });
     }
 
