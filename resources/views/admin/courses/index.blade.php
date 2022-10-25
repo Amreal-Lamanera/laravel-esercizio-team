@@ -6,10 +6,10 @@
             <div class="col-8">
                 <h1>Elenco corsi:</h1>
             </div>
-            <div class="col-4 text-left d-flex justify-content-end align-items-center">
+            {{-- <div class="col-4 text-left d-flex justify-content-end align-items-center">
                 <a href="{{ route('admin.courses.create') }}" type="button" class="btn btn-primary btn-sm">Aggiungi
                     corso</a>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="container">
@@ -27,7 +27,8 @@
 
                             <th scope="col">CFU</th>
                             <th scope="col">Website</th>
-                            <th colspan="2"></th>
+                            <th colspan="3" class="text-right"><a href="{{ route('admin.courses.create') }}" type="button" class="btn btn-primary btn-sm">Aggiungi
+                                corso</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,18 +42,18 @@
                                 <td>{{ $c->website }}</td>
                                 <td>
                                     <a href="{{ route('admin.courses.show', $c) }}" type="button"
-                                        class="btn btn-secondary btn-sm">vedi</a>
+                                        class="btn btn-secondary btn-sm">Vedi</a>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.courses.edit', $c) }}" type="button"
-                                        class="btn btn-secondary btn-sm">edit</a>
+                                        class="btn btn-secondary btn-sm">Modifica</a>
                                 </td>
                                 <td>
                                     <form class="d-inline-block" action="{{ route('admin.courses.destroy', $c) }}"
                                         method="POST" onsubmit=" return confirm('Vuoi eliminare lo coursee?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                                     </form>
                                 </td>
                             </tr>

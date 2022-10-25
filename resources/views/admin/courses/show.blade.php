@@ -19,6 +19,22 @@
                         <li>
                             <span><strong>Website: </strong> </span> {{ $course->website }}
                         </li>
+                        <li>
+                            <strong>Docenti:</strong>
+                            <ol>
+                                @forelse ($course->teachers()->orderBy('surname','asc')->get() as $teacher)
+                                    <li>
+                                        {{ $teacher->name }} {{ $teacher->surname }} <br>
+                                        <small>{{ $teacher->email }}</small>
+                                        <form action="{{ route('admin.detachTeacher', ["teacher" => $teacher, "course" => $course ] ) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm">Elimina Docente</button>
+                                        </form>
+                                    </li>
+                                @empty
+                                    <li>nessun docente per questo corso</li>
+                                @endforelse
+                        </li>
                     </ul>
                 </div>
                 <div class="buttons mt-4 d-flex justify-content-between align-items-center">
