@@ -14,7 +14,9 @@ class AddForeignDegreeIdCoursesTable extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('degree_id')->after('website');
+
+            $table->foreign('degree_id')->references('id')->on('degrees');
         });
     }
 
@@ -26,7 +28,9 @@ class AddForeignDegreeIdCoursesTable extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            //
+            $table->dropForeign(['degree_id']); //courses_degree_id_foreign
+
+            $table->dropColumn('degree_id');
         });
     }
 }
