@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Course;
+use App\Degree;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,7 +31,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('admin.courses.create');
+        $degrees = Degree::orderBy('name', 'asc')->get();
+
+        return view('admin.courses.create', compact('degrees'));
     }
 
     /**
@@ -48,9 +51,10 @@ class CourseController extends Controller
             'year' => ['required', Rule::in([1,2,3,4,5,6])],
             'cfu' => 'required|max:50|min:1',
             'website' => 'url|nullable',
+            'degree_id' => 'required|exists:degrees,id'
         ]);
 
-        $course = course::create($params);
+        $course = Course::create($params);
 
         return redirect()->route('admin.courses.show', $course);
 
