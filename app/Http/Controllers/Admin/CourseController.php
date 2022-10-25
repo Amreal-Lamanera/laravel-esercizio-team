@@ -134,13 +134,13 @@ class CourseController extends Controller
         $params = $request->all();
         $course_id = $params['course'];
 
-        $course = Course::where('id', $course_id)->get();
+        $course = Course::where('id', $course_id)->first();
 
         // dd($course);
 
         $params = $request->validate([
             'teacher' => 'exists:teachers,id',
-            
+
         ]);
 
         $teacher_id = $params['teacher'];
