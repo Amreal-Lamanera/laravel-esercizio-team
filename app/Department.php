@@ -14,4 +14,9 @@ class Department extends Model
         'address',
         'phone'
     ];
+
+    public function degrees()
+    {
+        return $this->HasMany('App\Degree');
+    }
 }
