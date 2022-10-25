@@ -37656,8 +37656,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\Users\Danilo\Desktop\LARAVEL\laravel-esercizio-team\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Users\Danilo\Desktop\LARAVEL\laravel-esercizio-team\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! C:\BooleanDevelopement\laravel-esercizio-team\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\BooleanDevelopement\laravel-esercizio-team\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> 8c8b1538d8ebaa714359d732c826ab24490d6275
 
 
 /***/ })
